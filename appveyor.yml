@@ -31,7 +31,7 @@ dotnet_csproj:
   file_version: '{version}'
   informational_version: '{version}'
 before_build:
-- cmd: nuget restore
+- cmd: dotnet restore
 
 matrix:
   fast_finish: true
