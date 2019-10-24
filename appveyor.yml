@@ -1,10 +1,14 @@
 version: 0.1.0.{build}
-image:
-  - Visual Studio 2019
-  - Visual Studio 2017
-configuration:
-  - ReleaseCI
-  - ReleaseCI2017
+
+environment:
+  matrix:
+
+  - job_name: VS 2019 build
+    appveyor_build_worker_image: Visual Studio 2019
+    
+  - job_name: VS 2017 build
+    appveyor_build_worker_image: Visual Studio 2017
+
 init:
   - git config --global core.autocrlf false
 branches:
@@ -33,17 +37,12 @@ before_build:
 
 matrix:
   fast_finish: true
-  exclude:
-    - image: Visual Studio 2019
-      configuration: ReleaseCI2017
-    - image: Visual Studio 2017
-      configuration: ReleaseCI
 
 for:
 - 
   matrix:
     only:
-      - image: Visual Studio 2019
+      - appveyor_build_worker_image: Visual Studio 2019
   configuration: ReleaseCI
   build:
     project: 2019\2019.csproj
@@ -63,7 +62,7 @@ for:
 - 
   matrix:
     only:
-      - image: Visual Studio 2017
+      - appveyor_build_worker_image: Visual Studio 2017
   configuration: ReleaseCI2017
   install:
   - ps: Invoke-WebRequest -Uri 'https://dot.net/v1/dotnet-install.ps1' -UseBasicParsing -OutFile "$env:temp\dotnet-install.ps1"
