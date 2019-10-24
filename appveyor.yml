@@ -15,9 +15,7 @@ branches:
   only:
     - master
 skip_tags:  true
-only_commits:
-  files:
-    - Shared/
+
 assembly_info:
   patch: true
   file: AssemblyInfo.*
@@ -43,6 +41,7 @@ for:
   matrix:
     only:
       - appveyor_build_worker_image: Visual Studio 2019
+
   configuration: ReleaseCI
   build:
     project: 2019\2019.csproj
@@ -63,6 +62,7 @@ for:
   matrix:
     only:
       - appveyor_build_worker_image: Visual Studio 2017
+
   configuration: ReleaseCI2017
   install:
   - ps: Invoke-WebRequest -Uri 'https://dot.net/v1/dotnet-install.ps1' -UseBasicParsing -OutFile "$env:temp\dotnet-install.ps1"
